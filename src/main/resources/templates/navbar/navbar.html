@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<header th:fragment="navbar">
+    <a href="/" class="logo">Reveal</a>
+    <nav class="navbar">
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/contact">Contacts</a></li>
+        <li sec:authorize="!isAuthenticated()"><a href="/login">Sign in</a></li>
+        <li sec:authorize="!isAuthenticated()"><a href="/registration">Sign up</a></li>
+
+        <li sec:authorize="isAuthenticated()">
+          <a href="#" sec:authentication="name"></a>
+          <ul>
+            <li><a th:href="@{/profile/posts/} + ${#authentication.getName()}">Profile</a> </li>
+            <li><a href="/new_post">New post</a> </li>
+            <li><a href="/favorites">Favorites</a> </li>
+            <li><a href="/logout">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+</header>
+</body>
+</html>

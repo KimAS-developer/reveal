@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/customBody.css" /></head>
+    <link rel="stylesheet" type="text/css" href="/static/css/post.css" /></head>
+<body>
+<header class="main-container" th:insert="/navbar/navbar.html :: navbar"></header>
+
+<div th:if="${messages.isEmpty}">
+    <span> No posts </span>
+</div>
+<tr th:each="message : ${messages}">
+
+    <div class="post-container">
+        <div class="post">
+            <div class="post-header">
+                <img class="post-profile-pic" src="/static/images/img2.jpg" alt="Profile Picture">
+                <div class="post-info">
+                    <a class="profileLink" th:href="@{/profile/posts/} + ${message.author.userName}"><h4 th:text="${message.author.userName}"></h4></a>
+                </div>
+            </div>
+            <div class="post-body">
+                <p th:text="${message.text}"></p>
+                <p th:text="${message.tag}"></p>
+            </div>
+        </div>
+    </div>
+</tr>
+</body>
+</html>

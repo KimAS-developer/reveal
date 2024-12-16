@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="followings">
+    <!-- Post Section -->
+    <div th:if="${followings.isEmpty}">
+        <span> No followings </span>
+    </div>
+    <tr th:each="following : ${followings}">
+
+        <div class="post-container">
+            <div class="post">
+                <div class="post-header">
+                    <img class="post-profile-pic" src="/static/images/img2.jpg" alt="Profile Picture">
+                    <div class="post-info" >
+                        <a class="profileLink" th:href="@{/profile/posts/} + ${following.userName}">
+                            <h4 th:text="${following.userName}"></h4>
+                        </a>
+                        <a class="subButton" th:href="@{/unsubscribe/} + ${following.userName}"><h4>Unsubscribe</h4></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tr>
+</div>
+</body>
+</html>

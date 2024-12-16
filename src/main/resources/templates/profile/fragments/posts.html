@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="posts">
+  <!-- Post Section -->
+  <div th:if="${messages.isEmpty}">
+    <span> No posts </span>
+  </div>
+  <tr th:each="message : ${messages}">
+
+    <div class="post-container">
+      <div class="post">
+        <div class="post-header">
+          <img class="post-profile-pic" src="/static/images/img2.jpg" alt="Profile Picture">
+          <div class="post-info">
+            <a class="profileLink" th:href="@{/profile/posts/} + ${name}"><h4 th:text="${name}"></h4></a>
+          </div>
+        </div>
+        <div class="post-body">
+          <p th:text="${message.text}"></p>
+          <p th:text="${message.tag}"></p>
+        </div>
+      </div>
+    </div>
+  </tr>
+</div>
+</body>
+</html>

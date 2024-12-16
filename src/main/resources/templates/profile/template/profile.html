@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" href="/static/css/post.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css"/>
+</head>
+
+<body>
+<header class="main-container" th:insert="/navbar/navbar.html :: navbar"></header>
+<div class="profile-container" th:fragment="profile">
+    <!-- Cover Photo -->
+    <div class="cover-photo">
+        <img src="/static/images/img1.jpg" alt="Cover Photo">
+    </div>
+    <!-- Profile Picture and Navigation -->
+    <div class="profile-info">
+        <img class="profile-pic" src="/static/images/img2.jpg" alt="Profile Picture">
+        <h2 th:text="${name}"></h2>
+        <p>San Francisco, CA</p>
+
+        <div class="nav">
+            <ul>
+                <li><a th:href="@{/profile/posts/} + ${name}">Timeline</a></li>
+                <li><a th:href="@{/profile/about/} + ${name}">About</a></li>
+                <li><a th:href="@{/profile/followers/} + ${name}">Followers</a></li>
+                <li><a th:href="@{/profile/followings/} + ${name}">Followings</a></li>
+                <li th:if="${name} != ${#authentication.getName()}">
+                    <a th:if="!${isFollower}" th:href="@{/subscribe/} + ${name}">Subscribe</a>
+                    <a th:if="${isFollower}" th:href="@{/unsubscribe/} + ${name}">Unsubscribe</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+    <div th:if="${content == 'posts'}" th:insert="/profile/fragments/posts"></div>
+    <div th:if="${content == 'about'}" th:insert="/profile/fragments/about"></div>
+    <div th:if="${content == 'followers'}" th:insert="/profile/fragments/followers"></div>
+    <div th:if="${content == 'followings'}" th:insert="/profile/fragments/followings"></div>
+</div>
+</body>
+
+</html>

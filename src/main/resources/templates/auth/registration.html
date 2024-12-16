@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/customBody.css" />
+</head>
+<body>
+<header class="main-container" th:insert="/navbar.html :: navbar"></header>
+<div>
+    <div class="success" th:if="${success}">
+        <h1>Account is created!</h1>
+        <a href="/login">Login</a>
+    </div>
+
+    <form class="registration_form" method="post" th:object="${user}">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+
+        <input required type="text" th:field="${user.userName}" placeholder="User name"/>
+        <div th:if="${nameError}">
+            <span class="verdict" th:text="|${nameError}|"></span>
+        </div>
+
+        <input required type="email" th:field="${user.email}" placeholder="Email"/>
+        <div th:if="${emailError}">
+            <span class="verdict" th:text="|${emailError}|"></span>
+        </div>
+
+        <input required type="text" th:field="${user.address}" placeholder="Address"/>
+
+        <input required type="text" th:field="${user.biography}" placeholder="Bio"/>
+
+        <input required type="date" th:field="${user.birthDay}" placeholder="Date of birth"/>
+
+        <input required type="password" th:field="${user.password}" placeholder="Password"/>
+        <span class="verdict" th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"></span>
+
+        <input required type="password"  th:field="${user.passwordConfirm}" placeholder="Repeat password"/>
+        <span class="verdict" th:if="${#fields.hasErrors('passwordConfirm')}" th:errorclass="error" th:errors="*{passwordConfirm}"></span>
+        <div th:if="${passwordError}">
+            <span class="verdict" th:text="|${passwordError}|"></span>
+        </div>
+
+        <input type="submit" value="Register">
+        <a onclick="history.go(-1)">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
